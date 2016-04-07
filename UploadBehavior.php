@@ -7,6 +7,16 @@
  * ==============================================
  * 处理 ActiveRecord 子类文件或图片上传时，自动存到OSS，并把访问地址设为字段值
  * 
+ * public function behaviors()
+ *  {
+ *      return [
+ *          'uploadbehavior' => [
+ *              'class' => UploadBehavior::className(),
+ *              'fields' => ['cover', 'avatar'],
+ *          ]
+ *      ];
+ *  }
+ * 
  * @param unknowtype
  * @return return_type
  * @author: CoLee
