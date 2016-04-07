@@ -1,24 +1,24 @@
 {
-      "name": "colee/yii2-upload-behavior",
+      "name": "colee/yii2-behavior",
       "type": "library",
-      "description": "Vue.js library for Yii2 framework",
+      "description": "behavior library for Yii2 framework",
       "keywords": [
           "yii2",
           "colee",
           "upload",
           "file",
           "image",
-          "yii2-upload-behavior"
+          "yii2-behavior"
       ],
       "license": "MIT",
-      "homepage": "https://github.com/colee1985/yii2-upload-behavior",
+      "homepage": "https://github.com/colee1985/yii2-behavior",
       "minimum-stability": "dev",
       "authors": [
           {
               "name": "colee",
               "email": "5969226@qq.com",
-              "issues": "https://github.com/colee1985/yii2-upload-behavior/issues?state=open",
-              "source": "https://github.com/colee1985/yii2-upload-behavior"
+              "issues": "https://github.com/colee1985/yii2-behavior/issues?state=open",
+              "source": "https://github.com/colee1985/yii2-behavior"
           }
       ],
       "require": {
@@ -27,7 +27,7 @@
       },
       "autoload": {
           "psr-4": {
-              "colee\\vue\\": ""
+              "colee\\behavior\\": ""
           }
       }
   }
