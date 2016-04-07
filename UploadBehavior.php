@@ -72,7 +72,7 @@ class UploadBehavior extends Behavior
             $model->$field = implode(',', $paths);
             return true;
         }
-        if (!$this->getIsNewRecord()){
+        if (!$model->getIsNewRecord()){
             $model->$field = $model->oldAttributes[$field];
         }
         return true;
