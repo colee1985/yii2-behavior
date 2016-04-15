@@ -77,4 +77,14 @@ class UploadBehavior extends Behavior
         }
         return true;
     }
+
+    /**
+     * 获取不同尺寸图片
+     * @param unknown $attribute
+     * @param string $size
+     */
+    public function getImage($attribute, $size='s')
+    {
+        return \Yii::$app->oss->getThumbnailByUrl($this->owner->$attribute, $size);
+    }
 }
