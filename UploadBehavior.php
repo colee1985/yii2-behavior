@@ -13,6 +13,11 @@
  *          'uploadbehavior' => [
  *              'class' => UploadBehavior::className(),
  *              'fields' => ['cover', 'avatar'],
+ *              'generate'=>[
+ *                  'cover'=>function($file){
+ *                      return date('Ymd').'/'.$file->name;
+ *                  }
+ *              ],
  *          ]
  *      ];
  *  }
@@ -29,6 +34,7 @@ use yii\web\UploadedFile;
 class UploadBehavior extends Behavior
 {
     public $fields = [];
+    public $generate = [];//路径生成方法
     
     public function events()
     {
@@ -54,10 +60,12 @@ class UploadBehavior extends Behavior
      */
     private function uploadFile($model, $field)
     {
+        $generate = $this->generate;
         // 单张图
         $file = UploadedFile::getInstance($model, $field);
         if (!empty($file)){
-            $path = \Yii::$app->oss->upload2oss($file->tempName);
+            $path = empty($generate[$field])?null:$generate[$field]($file);
+            $path = \Yii::$app->oss->upload2oss($file->tempName, $path);
             $model->$field = \Yii::$app->oss->getImageUrl($path);
             return true;
         }
@@ -66,7 +74,8 @@ class UploadBehavior extends Behavior
         if (count($files)>0){
             $paths = [];
             foreach ($files as $file){
-                $path = \Yii::$app->oss->upload2oss($file->tempName);
+                $path = empty($generate[$field])?null:$generate[$field]($file);
+                $path = \Yii::$app->oss->upload2oss($file->tempName, $path);
                 $paths[] = \Yii::$app->oss->getImageUrl($path);
             }
             $model->$field = implode(',', $paths);
@@ -74,6 +83,9 @@ class UploadBehavior extends Behavior
         }
         if (!$model->getIsNewRecord()){
             $model->$field = $model->oldAttributes[$field];
+        }
+        if (is_array($model->$field)){
+            $model->$field = implode(',', $model->$field);
         }
         return true;
     }

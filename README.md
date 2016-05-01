@@ -9,6 +9,12 @@ public function behaviors()
         'uploadbehavior' => [
             'class' => UploadBehavior::className(),
             'fields' => ['cover', 'avatar'],
+            'generate'=>[
+            	// 自定义文件路径规则
+                'cover'=>function($file){
+                    return date('Ymd').'/'.$file->name;
+                }
+            ],
         ]
     ];
 }
